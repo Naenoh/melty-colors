@@ -8,6 +8,11 @@ import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 import io.javalin.Javalin;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import static io.javalin.plugin.rendering.template.TemplateUtil.model;
 
 /**
@@ -21,7 +26,10 @@ public class App
         Jdbi jdbi = Jdbi.create("jdbc:h2:mem:test");
         jdbi.installPlugin(new SqlObjectPlugin());
         Javalin app = Javalin.create().start(7000);
-
+        try {
+            Files.createDirectory(Paths.get("/images"));
+        } catch (IOException e) {
+        }
         CustomColorDAO colorDAO = new CustomColorDAO();
         CharacterDAO characterDAO = new CharacterDAO();
         ColorsController controller = new ColorsController(colorDAO);
@@ -30,5 +38,6 @@ public class App
         app.get("/submit", ctx -> ctx.render("submit.jte"));
         app.get("/colors", controller::getColors);
         app.get("/colors/<id>", controller::getColor);
+        app.post("/colors", controller::addColor);
     }
 }

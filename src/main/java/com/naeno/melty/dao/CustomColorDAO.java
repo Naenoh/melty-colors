@@ -24,4 +24,10 @@ public class CustomColorDAO {
     public CustomColor getColor(String id) {
         return customColors.get(id);
     }
+
+    public CustomColor addColor(String name, String creator, int[] colors, String imageURL) {
+        CustomColor color = new CustomColor(0, name,creator,colors[0],colors[1],colors[2],colors[3],colors[4],colors[5], imageURL);
+        customColors.put("0",color);
+        return color;
+    }
 }
