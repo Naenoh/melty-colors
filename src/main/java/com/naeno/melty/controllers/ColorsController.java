@@ -35,7 +35,7 @@ public class ColorsController {
         String creator = ctx.formParam("creator");
         int[] colors = new int[6];
         for (int i = 0; i<6;i++){
-            colors[i] = ctx.formParamAsClass(i==0?"base":"color"+i, Integer.class).get();
+            colors[i] = ctx.formParamAsClass("color"+i, Integer.class).get();
         }
         UploadedFile uploadedFile = ctx.uploadedFile("image");
         String imageURL = "images/"+ UUID.randomUUID()+uploadedFile.getExtension();
