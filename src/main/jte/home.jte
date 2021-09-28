@@ -3,8 +3,8 @@
 
 @import java.util.List
 
-@param List<Character> characters = new com.naeno.melty.dao.CharacterDAO().getChars()
-@param List<CustomColor> colors = new com.naeno.melty.dao.CustomColorDAO().getCustomColors()
+@param List<Character> characters
+@param List<CustomColor> colors
 
 @layout.base(content = @`
     @tag.charlist(characters = characters)

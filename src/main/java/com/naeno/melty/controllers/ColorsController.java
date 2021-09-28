@@ -16,7 +16,13 @@ public class ColorsController {
     }
 
     public void getColors(Context ctx) {
+        // filtering
         ctx.render("browse.jte", Collections.singletonMap("colors", colorDAO.getCustomColors()));
+    }
+
+    public void getColor(Context ctx) {
+        // db stuff
+        ctx.render("color.jte",Collections.singletonMap("color", colorDAO.getColor(ctx.pathParam("id"))));
     }
 
 }
