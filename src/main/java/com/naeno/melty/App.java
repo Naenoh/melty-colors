@@ -32,7 +32,7 @@ public class App
         }
         CustomColorDAO colorDAO = new CustomColorDAO();
         CharacterDAO characterDAO = new CharacterDAO();
-        ColorsController controller = new ColorsController(colorDAO);
+        ColorsController controller = new ColorsController(colorDAO, characterDAO);
 
         app.get("/", ctx -> ctx.render("home.jte", model("colors",colorDAO.getCustomColors(), "characters", characterDAO.getChars())));
         app.get("/submit", ctx -> ctx.render("submit.jte"));

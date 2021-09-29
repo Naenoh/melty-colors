@@ -1,6 +1,7 @@
 package com.naeno.melty.controllers;
 
 
+import com.naeno.melty.dao.CharacterDAO;
 import com.naeno.melty.dao.CustomColorDAO;
 import com.naeno.melty.models.CustomColor;
 import io.javalin.core.util.FileUtil;
@@ -12,17 +13,21 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.UUID;
 
+import static io.javalin.plugin.rendering.template.TemplateUtil.model;
+
 public class ColorsController {
 
-    private CustomColorDAO colorDAO;
+    private final CustomColorDAO colorDAO;
+    private final CharacterDAO charDAO;
 
-    public ColorsController(CustomColorDAO colorDAO) {
+    public ColorsController(CustomColorDAO colorDAO, CharacterDAO characterDAO) {
         this.colorDAO = colorDAO;
+        this.charDAO = characterDAO;
     }
 
     public void getColors(Context ctx) {
         // filtering
-        ctx.render("browse.jte", Collections.singletonMap("colors", colorDAO.getCustomColors()));
+        ctx.render("browse.jte", model("colors", colorDAO.getCustomColors(),"characters", charDAO.getChars()));
     }
 
     public void getColor(Context ctx) {

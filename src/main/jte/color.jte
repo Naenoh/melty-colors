@@ -2,10 +2,39 @@
 @param CustomColor color
 
 @layout.base(content = @`
-    <a class="relative" href="/color/${color.id()}">
-        <img class="w-full h-auto" src="${color.imageURL()}" />
-        <div class="absolute bg-opacity-60 bg-black text-white bottom-0 w-full pl-2 py-1">
-            <span class="font-bold">${color.name()}</span> by <span class="font-bold">${color.creator()}</span>
+    <div class="pt-4 max-w-2xl mx-auto">
+        <div class="pb-4 w-full text-center">
+            <div class="text-4xl font-bold">${color.name()}</div>
+            <div class="text-xl font-italic">by <span class="font-bold">${color.creator()}</span></div>
         </div>
-    </a>
+        <div class="grid grid-cols-2">
+            <img class="border-black border" src="${color.imageURL()}">
+            <div class="flex flex-col pl-2 border-l border-black">
+                <div class="m-2 w-32 flex">
+                    <div class="w-20 font-bold border-black border text-center">Base</div>
+                    <div class="px-2 border">${color.color0()}</div>
+                </div>
+                <div class="m-2 w-32 flex">
+                    <div class="w-20 font-bold border-black border text-center">Color 1</div>
+                    <div class="px-2 border">${color.color1()}</div>
+                </div>
+                <div class="m-2 w-32 flex">
+                    <div class="w-20 font-bold border-black border text-center">Color 2</div>
+                    <div class="px-2 border">${color.color2()}</div>
+                </div>
+                <div class="m-2 w-32 flex">
+                    <div class="w-20 font-bold border-black border text-center">Color 3</div>
+                    <div class="px-2 border">${color.color3()}</div>
+                </div>
+                <div class="m-2 w-32 flex">
+                    <div class="w-20 font-bold border-black border text-center">Color 4</div>
+                    <div class="px-2 border">${color.color4()}</div>
+                </div>
+                <div class="m-2 w-32 flex">
+                    <div class="w-20 font-bold border-black border text-center">Color 5</div>
+                    <div class="px-2 border">${color.color5()}</div>
+                </div>
+            </div>
+        </div>
+    </div>
 `)
