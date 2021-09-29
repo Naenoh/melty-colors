@@ -50,14 +50,14 @@ public class CustomColorDAO {
         return jdbi.withHandle(handle -> {
             String baseQuery = "select * from colors WHERE 1=1 ";
             if (name != null && !name.isEmpty()) {
-                baseQuery += "AND name like %:name%";
+                baseQuery += "AND name like :name";
             }
             if (charId != null) {
                 baseQuery += "AND char_id = :char_id";
             }
             Query query = handle.createQuery(baseQuery);
             if (name != null && !name.isEmpty()) {
-                query.bind("name",name);
+                query.bind("name","%"+name+"%");
             }
             if (charId != null) {
                 query.bind("char_id",charId);

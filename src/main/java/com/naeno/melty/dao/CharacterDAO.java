@@ -14,10 +14,8 @@ public class CharacterDAO {
     }
 
     public List<Character> getChars(){
-        List<Character> characters = jdbi.withHandle(handle -> handle.createQuery("select id, name, image_name from characters")
+        return jdbi.withHandle(handle -> handle.createQuery("select id, name, image_name from characters")
                 .mapTo(Character.class)
                 .list());
-        System.out.println(characters);
-        return characters;
     }
 }
