@@ -12,7 +12,7 @@
                 <input class="flex-1 pb-1 border border-l-0" required type="text" id="creator" name="creator">
             </div>
             @for(int i = 0; i<6; i++)
-                !{String displayName = i == 0 ? "Base" : "Color "+i;}
+                !{String displayName = i == 0 ? "Base" : "Parts "+i;}
                 <div class="m-2 w-32 flex">
                     <label class="w-20 px-2 border text-center border-black" for="${"color"+i}">${displayName}</label><select class="border border-l-0" id="${"color"+i}" required name="${"color"+i}">
                         @for(int j = 1; j<=10; j++)

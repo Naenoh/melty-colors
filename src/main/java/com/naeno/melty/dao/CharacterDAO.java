@@ -1,22 +1,21 @@
 package com.naeno.melty.dao;
 
 import com.naeno.melty.models.Character;
+import org.jdbi.v3.core.Jdbi;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CharacterDAO {
 
-    private List<Character> chars = new ArrayList<>();
+    private final Jdbi jdbi;
 
-    public CharacterDAO(){
-        for (int i = 1; i <= 14; i++) {
-            Character character = new Character(i,"Shiki-"+i,"https://i.imgur.com/xAfyWHv.png");
-            chars.add(character);
-        }
+    public CharacterDAO(Jdbi jdbi){
+        this.jdbi = jdbi;
     }
 
     public List<Character> getChars(){
-        return chars;
+        return jdbi.withHandle(handle -> handle.createQuery("select id, name, image_name from characters")
+                .mapTo(Character.class)
+                .list());
     }
 }

@@ -15,23 +15,23 @@
                     <div class="px-2 border">${color.color0()}</div>
                 </div>
                 <div class="m-2 w-32 flex">
-                    <div class="w-20 font-bold border-black border text-center">Color 1</div>
+                    <div class="w-20 font-bold border-black border text-center">Parts 1</div>
                     <div class="px-2 border">${color.color1()}</div>
                 </div>
                 <div class="m-2 w-32 flex">
-                    <div class="w-20 font-bold border-black border text-center">Color 2</div>
+                    <div class="w-20 font-bold border-black border text-center">Parts 2</div>
                     <div class="px-2 border">${color.color2()}</div>
                 </div>
                 <div class="m-2 w-32 flex">
-                    <div class="w-20 font-bold border-black border text-center">Color 3</div>
+                    <div class="w-20 font-bold border-black border text-center">Parts 3</div>
                     <div class="px-2 border">${color.color3()}</div>
                 </div>
                 <div class="m-2 w-32 flex">
-                    <div class="w-20 font-bold border-black border text-center">Color 4</div>
+                    <div class="w-20 font-bold border-black border text-center">Parts 4</div>
                     <div class="px-2 border">${color.color4()}</div>
                 </div>
                 <div class="m-2 w-32 flex">
-                    <div class="w-20 font-bold border-black border text-center">Color 5</div>
+                    <div class="w-20 font-bold border-black border text-center">Parts 5</div>
                     <div class="px-2 border">${color.color5()}</div>
                 </div>
             </div>
