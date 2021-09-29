@@ -1,3 +1,7 @@
+@import com.naeno.melty.models.Character
+@import java.util.List
+
+@param List<Character> characters
 
 @layout.base(content = @`
     <form class="pt-4 max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-2" action="/colors" method="post" enctype="multipart/form-data">
@@ -10,6 +14,14 @@
             <div class="flex m-2">
                 <label class="px-2 border border-black w-20 text-center" for="creator">Creator</label>
                 <input class="flex-1 pb-1 border border-l-0" required type="text" id="creator" name="creator">
+            </div>
+            <div class="flex m-2">
+                <label class="border border-black w-20 text-center" for="character">Character</label>
+                <select class="py-1 border border-l-0 text-center" id="character" name="charId">
+                    @for(Character character : characters)
+                        <option value="${character.id()}">${character.name()}</option>
+                    @endfor
+                </select>
             </div>
             @for(int i = 0; i<6; i++)
                 !{String displayName = i == 0 ? "Base" : "Parts "+i;}

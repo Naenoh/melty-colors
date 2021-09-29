@@ -40,7 +40,7 @@ public class CustomColorDAO {
                 .bind("color4",colors[4])
                 .bind("color5",colors[5])
                 .bind("image_name",imageURL)
-                .bind("charId", charId)
+                .bind("char_id", charId)
                 .executeAndReturnGeneratedKeys("id").mapTo(Integer.class).one());
         return new CustomColor(id, name, creator, colors[0],colors[1],colors[2],colors[3],colors[4],colors[5],imageURL,charId);
     }

@@ -14,6 +14,7 @@ import io.javalin.Javalin;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 
 import static io.javalin.plugin.rendering.template.TemplateUtil.model;
@@ -42,7 +43,7 @@ public class App {
         ColorsController controller = new ColorsController(colorDAO, characterDAO);
 
         app.get("/", controller::getHome);
-        app.get("/submit", ctx -> ctx.render("submit.jte"));
+        app.get("/submit", ctx -> ctx.render("submit.jte", Collections.singletonMap("characters", characterDAO.getChars())));
         app.get("/colors", controller::getColors);
         app.get("/colors/<id>", controller::getColor);
         app.post("/colors", controller::addColor);
