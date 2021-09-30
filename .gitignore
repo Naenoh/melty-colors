@@ -3,5 +3,5 @@ jte-classes
 .settings
 .classpath
 .project
-images
-db/*.db*
+data
+node_modules

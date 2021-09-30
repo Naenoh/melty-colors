@@ -5,7 +5,10 @@
 
 @layout.base(content = @`
     <form class="pt-4 max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-2" action="/colors" method="post" enctype="multipart/form-data">
-        <div class="bg-blue-400"></div>
+        <div class="flex flex-col bg-blue-400">
+            <img class="h-full" src="images/placeholder.webp" id="preview">
+            <input class="w-full border" type="text">
+        </div>
         <fieldset class="flex flex-col flex-wrap font-bold ml-2 border-l-2 border-black">
             <div class="flex m-2 ">
                 <label class="px-2 border border-black w-20 text-center" for="name">Name</label>
@@ -34,10 +37,8 @@
 
                 </div>
             @endfor
-            <label class="m-2">Image
-                <input accept="image/*" type="file" required name="image">
-            </label>
-            <input class="m-2 ml-2" type="submit" value="Submit">
+            <input class="opacity-0 h-0 w-0" accept="image/*" type="file" required name="image">
+            <input class="font-bold text-2xl bg-blue-900 hover:bg-blue-400 text-white tw-min mx-auto px-6 py-2 border border-black" type="submit" value="Submit">
         </fieldset>
     </form>
 `)

@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "autoprefixer": "^10.3.4",
+    "postcss": "^8.3.6",
+    "tailwindcss": "^2.2.9"
+  },
+  "scripts": {
+    "buildcss": "npx tailwindcss -i assets/css/tailwind.css -o static/css/tailwind.css --minify",
+    "buildcssw-prod": "set NODE_ENV=production&& npx tailwindcss -i assets/css/tailwind.css -o static/css/tailwind.min.css --minify",
+    "buildcss-prod": "NODE_ENV=production npx tailwindcss -i assets/css/tailwind.css -o static/css/tailwind.min.css --minify"
+  }
+}

@@ -8,7 +8,7 @@
             <div class="text-xl font-italic">by <span class="font-bold">${color.creator()}</span></div>
         </div>
         <div class="grid grid-cols-2">
-            <img class="border-black border" src="${color.imageURL()}">
+            <img class="border-black border" src="/images/${color.imageURL()}">
             <div class="flex flex-col pl-2 border-l border-black">
                 <div class="m-2 w-32 flex">
                     <div class="w-20 font-bold border-black border text-center">Base</div>

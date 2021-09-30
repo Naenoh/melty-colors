@@ -125,6 +125,24 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
         </plugin>
+        <plugin>
+          <groupId>gg.jte</groupId>
+          <artifactId>jte-maven-plugin</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <sourceDirectory>${basedir}/src/main/jte</sourceDirectory>
+            <targetDirectory>${basedir}/jte-classes</targetDirectory>
+            <contentType>Html</contentType>
+          </configuration>
+          <executions>
+            <execution>
+              <phase>process-classes</phase>
+              <goals>
+                <goal>precompile</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
