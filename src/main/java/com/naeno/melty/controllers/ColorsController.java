@@ -48,7 +48,7 @@ public class ColorsController {
         }
         UploadedFile uploadedFile = ctx.uploadedFile("image");
         String imageURL = UUID.randomUUID()+uploadedFile.getExtension();
-        FileUtil.streamToFile(uploadedFile.getContent(),"images/"+imageURL);
+        FileUtil.streamToFile(uploadedFile.getContent(),"data/images/"+imageURL);
         CustomColor color = colorDAO.addColor(name,creator,colors,imageURL,charId);
         ctx.redirect("/colors/" + color.id(), 302);
     }
