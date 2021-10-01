@@ -10,7 +10,7 @@
 </head>
 <body class="sans-serif min-h-screen relative">
     @tag.header()
-    <main class="pb-20 max-w-6xl mx-2 md:mx-auto h-full">
+    <main class="pb-20 max-w-6xl mx-2 md:mx-auto h-full bg-gray-200">
         ${content}
     </main>
     @tag.footer()

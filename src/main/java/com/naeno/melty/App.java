@@ -8,6 +8,7 @@ import com.naeno.melty.models.CustomColor;
 import gg.jte.ContentType;
 import gg.jte.TemplateEngine;
 import gg.jte.resolve.DirectoryCodeResolver;
+import io.javalin.core.util.FileUtil;
 import io.javalin.http.staticfiles.Location;
 import io.javalin.plugin.rendering.template.JavalinJte;
 import org.jdbi.v3.core.Jdbi;
@@ -16,6 +17,7 @@ import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 import io.javalin.Javalin;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -34,6 +36,13 @@ public class App {
         if (args.length > 0 && "prod".equals(args[0])){
             isProd = true;
         }
+
+        try {
+            Files.createDirectories(Paths.get("data","images"));
+            Files.createDirectories(Paths.get("data","db"));
+        } catch (IOException e) {
+        }
+
         JavalinJte.configure(createTemplateEngine());
         Javalin app = Javalin.create(config -> {
             config.addStaticFiles(staticFileConfig -> {
@@ -48,11 +57,6 @@ public class App {
                 staticFileConfig.location = Location.EXTERNAL;
             });
         }).start(7000);
-        try {
-            Files.createDirectory(Paths.get("data/images"));
-            Files.createDirectory(Paths.get("data/db"));
-        } catch (IOException e) {
-        }
 
         Jdbi jdbi = Jdbi.create("jdbc:sqlite:data/db/database.db").installPlugin(new SqlObjectPlugin()).installPlugin(new SQLitePlugin());
         initDb(jdbi);
