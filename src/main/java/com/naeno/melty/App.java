@@ -43,7 +43,6 @@ public class App {
                 staticFileConfig.hostedPath = "/static";
                 staticFileConfig.directory = "static";
                 staticFileConfig.location = Location.EXTERNAL;
-                staticFileConfig.precompress = isProd;
             });
             config.addStaticFiles(staticFileConfig -> {
                 staticFileConfig.hostedPath = "/images";
@@ -76,7 +75,7 @@ public class App {
 
     private static TemplateEngine createTemplateEngine() {
         if (isProd) {
-            return TemplateEngine.createPrecompiled(Path.of("jte-classes"), ContentType.Html);
+            return TemplateEngine.createPrecompiled(ContentType.Html);
         } else {
             DirectoryCodeResolver codeResolver = new DirectoryCodeResolver(Path.of("src", "main", "jte"));
             return TemplateEngine.create(codeResolver, ContentType.Html);
