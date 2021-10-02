@@ -5,9 +5,9 @@
 
 @layout.base(content = @`
     <form class="pt-4 max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-2" action="/colors" method="post" enctype="multipart/form-data">
-        <div class="flex flex-col bg-blue-400">
-            <img class="h-full" src="images/placeholder.webp" id="preview">
-        </div>
+        <a href="#" class="flex flex-col bg-blue-400">
+            <img class="h-full" src="/static/images/placeholder.webp" id="preview">
+        </a>
         <fieldset class="flex flex-col flex-wrap font-bold ml-2 border-l-2 border-black">
             <div class="flex m-2 ">
                 <label class="px-2 border border-black w-20 text-center" for="name">Name</label>

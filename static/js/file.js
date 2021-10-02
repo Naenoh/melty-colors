@@ -6,7 +6,8 @@ function getPreview() {
 
 const preview = document.getElementById("preview");
 const input = document.getElementById("image");
-preview.addEventListener("click", () => {
+preview.addEventListener("click", (e) => {
+    e.preventDefault();
     input.click();
 });
 input.addEventListener("change", getPreview, false);
