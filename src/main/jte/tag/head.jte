@@ -12,3 +12,4 @@
 @else
     <link href="/static/css/tailwind.css" rel="stylesheet">
 @endif
+<script src="https://unpkg.com/htmx.org@1.6.0" defer></script>

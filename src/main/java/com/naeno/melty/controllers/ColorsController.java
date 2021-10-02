@@ -5,7 +5,6 @@ import com.naeno.melty.dao.CharacterDAO;
 import com.naeno.melty.dao.CustomColorDAO;
 import com.naeno.melty.models.CustomColor;
 import io.javalin.core.util.FileUtil;
-import io.javalin.core.validation.ValidationException;
 import io.javalin.http.Context;
 import io.javalin.http.UploadedFile;
 
@@ -32,8 +31,22 @@ public class ColorsController {
         if (charIdString != null && !charIdString.isEmpty()){
             charId = ctx.queryParamAsClass("charId",Integer.class).get();
         }
-        List<CustomColor> colors = colorDAO.getCustomColors(colorName, charId);
-        ctx.render("browse.jte", model("colors", colors,"characters", charDAO.getChars(),"charId",charId,"colorName",colorName));
+        Integer fromId = null;
+        String fromIdString = ctx.queryParam("fromId");
+        if (fromIdString != null && !fromIdString.isEmpty()) {
+            fromId = ctx.queryParamAsClass("fromId",Integer.class).get();
+        }
+        List<CustomColor> colors = colorDAO.getCustomColors(colorName, charId, fromId);
+        boolean hasMore = colors.size() == 21;
+        if (hasMore) {
+            colors.remove(colors.size()-1);
+        }
+        Boolean partial = ctx.queryParamAsClass("partial", Boolean.class).getOrDefault(false);
+        if (partial) {
+            ctx.render("tag/colorlist.jte", model("colors", colors,"characters", charDAO.getChars(),"charId",charId,"colorName",colorName,"hasMore",hasMore));
+        } else {
+            ctx.render("browse.jte", model("colors", colors,"characters", charDAO.getChars(),"charId",charId,"colorName",colorName,"hasMore",hasMore));
+        }
     }
 
     public void getColor(Context ctx) {
@@ -68,7 +81,12 @@ public class ColorsController {
     }
 
     public void getHome(Context ctx) {
-        ctx.render("home.jte", model("colors", colorDAO.getAllCustomColors(),"characters", charDAO.getChars()));
+        List<CustomColor> colors = colorDAO.getCustomColors(null,null, null);
+        boolean hasMore = colors.size() == 21;
+        if (hasMore) {
+            colors.remove(colors.size()-1);
+        }
+        ctx.render("home.jte", model("colors", colors,"characters", charDAO.getChars(), "hasMore", hasMore));
     }
 
 }

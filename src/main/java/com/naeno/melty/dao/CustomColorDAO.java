@@ -45,16 +45,20 @@ public class CustomColorDAO {
         return new CustomColor(id, name, creator, colors[0],colors[1],colors[2],colors[3],colors[4],colors[5],imageURL,charId);
     }
 
-    public List<CustomColor> getCustomColors(String name, Integer charId) {
+    public List<CustomColor> getCustomColors(String name, Integer charId, Integer fromId) {
 
         return jdbi.withHandle(handle -> {
             String baseQuery = "select * from colors WHERE 1=1 ";
             if (name != null && !name.isEmpty()) {
-                baseQuery += "AND name like :name";
+                baseQuery += " AND name like :name";
             }
             if (charId != null) {
-                baseQuery += "AND char_id = :char_id";
+                baseQuery += " AND char_id = :char_id";
             }
+            if (fromId != null) {
+                baseQuery += " AND id < :from_id";
+            }
+            baseQuery += " ORDER BY id DESC LIMIT 21";
             Query query = handle.createQuery(baseQuery);
             if (name != null && !name.isEmpty()) {
                 query.bind("name","%"+name+"%");
@@ -62,6 +66,10 @@ public class CustomColorDAO {
             if (charId != null) {
                 query.bind("char_id",charId);
             }
+            if (fromId != null) {
+                query.bind("from_id", fromId);
+            }
+
             return query.mapTo(CustomColor.class).list();
         });
     }

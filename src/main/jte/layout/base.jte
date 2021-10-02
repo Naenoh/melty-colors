@@ -8,9 +8,9 @@
 <head>
     @tag.head(title)
 </head>
-<body class="sans-serif min-h-screen relative">
+<body class="sans-serif min-h-screen relative bg-gray-200">
     @tag.header()
-    <main class="pb-20 max-w-6xl mx-2 md:mx-auto h-full bg-gray-200">
+    <main class="pb-20 max-w-6xl mx-2 md:mx-auto h-full">
         ${content}
     </main>
     @tag.footer()
