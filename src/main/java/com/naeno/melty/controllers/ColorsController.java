@@ -5,6 +5,7 @@ import com.naeno.melty.dao.CharacterDAO;
 import com.naeno.melty.dao.CustomColorDAO;
 import com.naeno.melty.models.CustomColor;
 import io.javalin.core.util.FileUtil;
+import io.javalin.core.validation.ValidationException;
 import io.javalin.http.Context;
 import io.javalin.http.UploadedFile;
 
@@ -38,18 +39,21 @@ public class ColorsController {
         ctx.render("color.jte",Collections.singletonMap("color", colorDAO.getColor(ctx.pathParamAsClass("id",Integer.class).get())));
     }
 
-    public void addColor(Context ctx) {
-        String name = ctx.formParam("name");
-        String creator = ctx.formParam("creator");
+    public void addColor(Context ctx) throws Exception {
+        String name = ctx.formParamAsClass("name", String.class).get();
+        String creator = ctx.formParamAsClass("name", String.class).get();
         Integer charId = ctx.formParamAsClass("charId",Integer.class).get();
         int[] colors = new int[6];
         for (int i = 0; i<6;i++){
             colors[i] = ctx.formParamAsClass("color"+i, Integer.class).get();
         }
         UploadedFile uploadedFile = ctx.uploadedFile("image");
+        if(uploadedFile == null) {
+            throw new Exception("Missing image file.");
+        }
         String imageURL = UUID.randomUUID()+uploadedFile.getExtension();
-        FileUtil.streamToFile(uploadedFile.getContent(),"data/images/"+imageURL);
         CustomColor color = colorDAO.addColor(name,creator,colors,imageURL,charId);
+        FileUtil.streamToFile(uploadedFile.getContent(),"data/images/"+imageURL);
         ctx.redirect("/colors/" + color.id(), 302);
     }
 

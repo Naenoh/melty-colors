@@ -4,10 +4,7 @@ import com.naeno.melty.models.CustomColor;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.statement.Query;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CustomColorDAO {
 
@@ -25,7 +22,10 @@ public class CustomColorDAO {
         return jdbi.withHandle(handle -> handle.createQuery("select * from colors where id = :id").bind("id",id).mapTo(CustomColor.class).one());
     }
 
-    public CustomColor addColor(String name, String creator, int[] colors, String imageURL, Integer charId) {
+    public CustomColor addColor(String name, String creator, int[] colors, String imageURL, Integer charId) throws Exception {
+        if(colorExists(colors, charId)) {
+            throw new Exception("This color already already exists.");
+        }
         Integer id = jdbi.withHandle(handle -> handle.createUpdate(
                 "insert into colors " +
                         "(name,creator,color0,color1,color2,color3,color4,color5,image_name,char_id)" +
@@ -66,14 +66,15 @@ public class CustomColorDAO {
         });
     }
 
-    public boolean colorExists(int[] colors) {
-        Integer count = jdbi.withHandle(handle -> {
-            Query query = handle.createQuery("select id from colors where color0 = ? and color1 = ? and color2 = ? and color3 = ? and color4 = ? and color5 = ?");
+    public boolean colorExists(int[] colors, int charId) {
+        Optional<Integer> count = jdbi.withHandle(handle -> {
+            Query query = handle.createQuery("select id from colors where color0 = ? and color1 = ? and color2 = ? and color3 = ? and color4 = ? and color5 = ? and char_id = ?");
             for(int i = 0; i < 6; i++){
                 query.bind(i,colors[i]);
             }
-            return query.mapTo(Integer.class).one();
+            query.bind(6, charId);
+            return query.mapTo(Integer.class).findFirst();
         });
-        return count != null;
+        return count.isPresent();
     }
 }

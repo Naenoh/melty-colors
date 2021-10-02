@@ -22,21 +22,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 
+import static io.javalin.plugin.rendering.template.TemplateUtil.model;
+
 public class App {
 
     public static boolean isProd = false;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        if (args.length > 0 && "prod".equals(args[0])){
+        if (args.length > 0 && "prod".equals(args[0])) {
             isProd = true;
         }
 
-        try {
-            Files.createDirectories(Paths.get("data","images"));
-            Files.createDirectories(Paths.get("data","db"));
-        } catch (IOException e) {
-        }
+        Files.createDirectories(Paths.get("data", "images"));
+        Files.createDirectories(Paths.get("data", "db"));
 
         JavalinJte.configure(createTemplateEngine());
         Javalin app = Javalin.create(config -> {
@@ -67,6 +66,12 @@ public class App {
         app.get("/colors", controller::getColors);
         app.get("/colors/<id>", controller::getColor);
         app.post("/colors", controller::addColor);
+        app.exception(Exception.class, (e, ctx) -> {
+            ctx.render("error.jte", model("message", e.getMessage()));
+        });
+        app.error(404, ctx -> {
+            ctx.render("error.jte", model("message", "404 not found."));
+        });
     }
 
     private static TemplateEngine createTemplateEngine() {
@@ -78,7 +83,7 @@ public class App {
         }
     }
 
-    public static void initDb(Jdbi jdbi){
+    public static void initDb(Jdbi jdbi) {
         jdbi.useHandle(handle -> {
             handle.execute("CREATE TABLE IF NOT EXISTS characters (id INTEGER PRIMARY KEY, name TEXT NOT NULL, image_name TEXT NOT NULL);");
             handle.execute("CREATE TABLE IF NOT EXISTS colors " +
