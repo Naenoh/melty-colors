@@ -65,4 +65,15 @@ public class CustomColorDAO {
             return query.mapTo(CustomColor.class).list();
         });
     }
+
+    public boolean colorExists(int[] colors) {
+        Integer count = jdbi.withHandle(handle -> {
+            Query query = handle.createQuery("select id from colors where color0 = ? and color1 = ? and color2 = ? and color3 = ? and color4 = ? and color5 = ?");
+            for(int i = 0; i < 6; i++){
+                query.bind(i,colors[i]);
+            }
+            return query.mapTo(Integer.class).one();
+        });
+        return count != null;
+    }
 }

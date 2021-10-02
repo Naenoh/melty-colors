@@ -8,7 +8,6 @@ import com.naeno.melty.models.CustomColor;
 import gg.jte.ContentType;
 import gg.jte.TemplateEngine;
 import gg.jte.resolve.DirectoryCodeResolver;
-import io.javalin.core.util.FileUtil;
 import io.javalin.http.staticfiles.Location;
 import io.javalin.plugin.rendering.template.JavalinJte;
 import org.jdbi.v3.core.Jdbi;
@@ -17,16 +16,12 @@ import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 import io.javalin.Javalin;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 
-/**
- * Hello world!
- */
 public class App {
 
     public static boolean isProd = false;
