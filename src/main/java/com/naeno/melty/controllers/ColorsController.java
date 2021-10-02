@@ -28,7 +28,8 @@ public class ColorsController {
     public void getColors(Context ctx) {
         String colorName = ctx.queryParam("colorName");
         Integer charId = null;
-        if (ctx.queryParam("charId") != null && !ctx.queryParam("charId").isEmpty()){
+        String charIdString = ctx.queryParam("charId");
+        if (charIdString != null && !charIdString.isEmpty()){
             charId = ctx.queryParamAsClass("charId",Integer.class).get();
         }
         List<CustomColor> colors = colorDAO.getCustomColors(colorName, charId);
@@ -41,7 +42,14 @@ public class ColorsController {
 
     public void addColor(Context ctx) throws Exception {
         String name = ctx.formParamAsClass("name", String.class).get();
-        String creator = ctx.formParamAsClass("name", String.class).get();
+        String creator = ctx.formParamAsClass("creator", String.class).get();
+        if (name.length() > 32){
+            throw new Exception("Name is too long (max size 32 characters).");
+        }
+        if (creator.length() > 24){
+            System.out.println(creator.length());
+            throw new Exception("Creator name is too long (max size 24 characters).");
+        }
         Integer charId = ctx.formParamAsClass("charId",Integer.class).get();
         int[] colors = new int[6];
         for (int i = 0; i<6;i++){
@@ -50,6 +58,8 @@ public class ColorsController {
         UploadedFile uploadedFile = ctx.uploadedFile("image");
         if(uploadedFile == null) {
             throw new Exception("Missing image file.");
+        } else if (uploadedFile.getSize() > 300000) {
+            throw new Exception("Uploaded image is too big (max size 300kb).");
         }
         String imageURL = UUID.randomUUID()+uploadedFile.getExtension();
         CustomColor color = colorDAO.addColor(name,creator,colors,imageURL,charId);

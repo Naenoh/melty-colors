@@ -11,11 +11,11 @@
         <fieldset class="flex flex-col flex-wrap font-bold ml-2 border-l-2 border-black">
             <div class="flex m-2 ">
                 <label class="px-2 border border-black w-20 text-center" for="name">Name</label>
-                <input class="flex-1 pb-1 border border-l-0" required type="text" id="name" name="name">
+                <input class="flex-1 pb-1 border border-l-0" maxlength="32" required type="text" id="name" name="name">
             </div>
             <div class="flex m-2">
                 <label class="px-2 border border-black w-20 text-center" for="creator">Creator</label>
-                <input class="flex-1 pb-1 border border-l-0" required type="text" id="creator" name="creator">
+                <input class="flex-1 pb-1 border border-l-0" maxlength="24" required type="text" id="creator" name="creator">
             </div>
             <div class="flex m-2">
                 <label class="border border-black w-20 text-center" for="character">Character</label>
